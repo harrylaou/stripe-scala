@@ -19,10 +19,10 @@ object Collections {
     protected def listDecoder[B <: List[A]](
         implicit decoder: Decoder[A]
     ): ((String, Boolean, scala.List[A], Option[Long]) => B) => Decoder[B] =
-      Decoder.forProduct4[String, Boolean, scala.List[A], Option[Long], B]("url", "has_more", "data", "total_count")
+      Decoder.forProduct4[B,String, Boolean, scala.List[A], Option[Long]]("url", "has_more", "data", "total_count")
 
     protected def listEncoder[B <: List[A]](implicit encoder: Encoder[A]): ObjectEncoder[B] =
-      Encoder.forProduct5[String, String, Boolean, scala.List[A], Option[Long], B](
+      Encoder.forProduct5[B,String, String, Boolean, scala.List[A], Option[Long]](
         "object",
         "url",
         "has_more",
